@@ -6,7 +6,7 @@
 const I18N = {
   zh: {
     nav_faq: '常见问题', nav_reviews: '用户评价',
-    nav_tech: '技术', nav_why: '为什么',
+    nav_tech: '技术',
     hero_badge: '✨ 已有 128,400+ 全球创作者选择白描算法',
     hero_title_1: '去掉 AI 的习惯', hero_title_2: '保留你的习惯',
     hero_title_3: '独家白描文学算法，把文字从生成感带回生活感',
@@ -62,7 +62,7 @@ const I18N = {
   },
   en: {
     nav_faq: 'FAQ', nav_reviews: 'Reviews',
-    nav_tech: 'Technology', nav_why: 'Why',
+    nav_tech: 'Technology',
     hero_badge: '✨ Trusted by 128,400+ creators worldwide',
     hero_title_1: 'Remove AI habits,', hero_title_2: 'keep your voice',
     hero_title_3: 'Plain-style algorithm: from generated text back to lived writing.',
@@ -118,7 +118,7 @@ const I18N = {
   },
   ja: {
     nav_faq: 'よくある質問', nav_reviews: 'レビュー',
-    nav_tech: '技術', nav_why: 'なぜ',
+    nav_tech: '技術',
     hero_badge: '✨ 128,400+ のクリエイターが白描アルゴリズムを選択',
     hero_title_1: 'AI の習慣を消し、', hero_title_2: 'あなたの声を残す',
     hero_title_3: '独自の白描文学アルゴリズムで、生成された文字を生活感のある文章に。',
@@ -174,7 +174,7 @@ const I18N = {
   },
   es: {
     nav_faq: 'Preguntas frecuentes', nav_reviews: 'Opiniones',
-    nav_tech: 'Tecnología', nav_why: 'Por qué',
+    nav_tech: 'Tecnología',
     hero_badge: '✨ 128,400+ creadores eligen el algoritmo de estilo llano',
     hero_title_1: 'Elimina los hábitos de IA,', hero_title_2: 'guarda tu voz',
     hero_title_3: 'Algoritmo de estilo llano: del texto generado a la escritura vivida.',
@@ -1000,21 +1000,6 @@ function renderI18n(){
   document.querySelectorAll('#langMenu button').forEach(b => b.classList.toggle('sel', b.dataset.lang === lang));
   // 输入框占位符
   $('input').placeholder = SCENES[scene].placeholder[lang] || SCENES[scene].placeholder.en;
-  // 价格
-  const pr = PRICING[lang];
-  $('prSingle').textContent = pr.single;
-  $('prMonthly').textContent = pr.monthly; $('prMonthlyWas').textContent = pr.monthly_was;
-  $('prYearly').textContent = pr.yearly; $('prYearlyWas').textContent = pr.yearly_was;
-  $('pwPrMonthly').textContent = pr.monthly; $('pwPrMonthlyWas').textContent = pr.monthly_was;
-  $('pwPrSingle').textContent = pr.single;
-  // plan features
-  const ft = SCENE_FEATURES[lang] || SCENE_FEATURES.en;
-  const renderList = (id, arr, addNo) => {
-    $(id).innerHTML = arr.map(x => `<li>${x}</li>`).join('') + (addNo || '');
-  };
-  renderList('ulSingle', ft.single, '<li class="no">' + (lang==='zh'?'会议纪要 / 汇报 / 调研专属引擎':'Meeting / Report / Research engines') + '</li><li class="no">' + (lang==='zh'?'批量处理':'Batch processing') + '</li>');
-  renderList('ulMonthly', ft.monthly);
-  renderList('ulYearly', ft.yearly);
   // reviews
   $('reviewGrid').innerHTML = (REVIEWS[lang] || REVIEWS.en).map(r => `
     <div class="review">
@@ -1035,8 +1020,6 @@ function renderI18n(){
   renderQuota();
   // input metrics
   onInput();
-  // pw cta
-  $('pwCta').textContent = pwSelected === 'monthly' ? pr.ctaMonthly : pr.ctaPack;
   // go button text
   const goBtn = $('goBtn');
   if(goBtn) goBtn.innerHTML = `<span data-i18n="btn_go">${t('btn_go')}</span>`;
@@ -1067,19 +1050,6 @@ function renderCopyBlocks(){
       <h3>${c.t}</h3>
       <p>${c.d}</p>
       <span class="ftag">${c.tag}</span>
-    </div>`).join('');
-
-  // 情感金句 + 三张人文卡片
-  const cb = COPY_BLOCKS[lang] || COPY_BLOCKS.en;
-  $('whyQuote').innerHTML = cb.why_quote + '<span class="why-quote-by">' + cb.why_quote_by + '</span>';
-  const whys = WHY_CARDS[lang] || WHY_CARDS.en;
-  $('whyCards').innerHTML = whys.map(w => `
-    <div class="why-card ${w.c}">
-      <div class="wi">${w.i}</div>
-      <div>
-        <h4>${w.t}</h4>
-        <p>${w.d}</p>
-      </div>
     </div>`).join('');
 
   // 收益卡片

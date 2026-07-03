@@ -181,21 +181,6 @@
   .tech-card .tmeta b{display:block;font-size:18px;color:var(--brand);font-weight:800}
   .tech-card .tmeta span{font-size:11.5px;color:var(--ink3)}
 
-  /* ---------- Why de-AI (情感人文) ---------- */
-  .why{background:linear-gradient(180deg,#fff 0,#fafaff 60%,#fff 100%);border-radius:24px;padding:48px 36px;border:1px solid var(--line)}
-  .why-quote{font-size:24px;font-weight:700;line-height:1.45;text-align:center;color:var(--ink);max-width:780px;margin:0 auto 30px;letter-spacing:-.2px}
-  .why-quote em{font-style:normal;background:linear-gradient(180deg,transparent 62%,#fde68a 62%);padding:0 4px}
-  .why-quote-by{display:block;text-align:center;font-size:13px;color:var(--ink3);font-weight:500;margin-top:14px}
-  .why-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:14px}
-  @media(max-width:900px){.why-cards{grid-template-columns:1fr}.why-quote{font-size:20px}}
-  .why-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 22px 24px;display:flex;gap:14px;align-items:flex-start}
-  .why-card .wi{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
-  .why-card.c1 .wi{background:#fef3c7;color:#b45309}
-  .why-card.c2 .wi{background:#dcfce7;color:#15803d}
-  .why-card.c3 .wi{background:#dbeafe;color:#1d4ed8}
-  .why-card h4{font-size:15.5px;font-weight:800;margin-bottom:5px}
-  .why-card p{font-size:13.5px;color:var(--ink2);line-height:1.7}
-
   /* ---------- Features (8 大产品特性) ---------- */
   .feat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
   @media(max-width:900px){.feat-grid{grid-template-columns:repeat(2,1fr)}}
@@ -313,7 +298,6 @@
     <div class="logo"><div class="logo-mark">T</div><span>TuiAI</span></div>
     <div class="nav-right">
       <a href="#tech" data-i18n="nav_tech">技术</a>
-      <a href="#why" data-i18n="nav_why">为什么</a>
       <a href="#faq" data-i18n="nav_faq">常见问题</a>
       <a href="#reviews" data-i18n="nav_reviews">用户评价</a>
       <div class="lang-select">
@@ -424,18 +408,6 @@
     <p class="sect-sub" data-i18n="feat_sub">独家白描文学算法，从具体、克制和准确的表达原则出发，让每一段文字都有一个人写在背后。</p>
   </div>
   <div class="feat-grid" id="featGrid"></div>
-</section>
-
-<!-- ============ 为什么要去AI味：情感人文驱动 ============ -->
-<section class="section" id="why">
-  <div class="section-head">
-    <div class="section-eyebrow" data-i18n="why_eyebrow">💭 为什么这件事重要</div>
-    <h2 data-i18n="why_title">每一段文字，都应该有<span class="grad" data-i18n="why_title_2"> 一个人在背后</span></h2>
-  </div>
-  <div class="why">
-    <p class="why-quote" id="whyQuote"></p>
-    <div class="why-cards" id="whyCards"></div>
-  </div>
 </section>
 
 <!-- ============ 去AI后能给你带来什么：购买驱动 ============ -->
