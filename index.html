@@ -3,7 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TuiAI · 一键去除AI味 | De-AI Your Writing</title>
+<title>TuiAI · 白描文学算法 | 去掉 AI 的习惯，保留你的习惯</title>
+<meta name="description" content="TuiAI 使用独家白描文学算法，把文字从生成感带回生活感。去掉 AI 的习惯，保留你的习惯。删除套话不删除个性，减少修辞增加细节，打散整齐恢复呼吸。">
+<meta property="og:title" content="TuiAI · 白描文学算法">
+<meta property="og:description" content="去掉 AI 的习惯，保留你的习惯。独家白描文学算法，把文字从生成感带回生活感。">
 <style>
   :root{
     --bg:#f6f7fb; --card:#ffffff; --ink:#111827; --ink2:#4b5563; --ink3:#9ca3af;
@@ -184,6 +187,17 @@
   .why-card h4{font-size:15.5px;font-weight:800;margin-bottom:5px}
   .why-card p{font-size:13.5px;color:var(--ink2);line-height:1.7}
 
+  /* ---------- Features (8 大产品特性) ---------- */
+  .feat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  @media(max-width:900px){.feat-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.feat-grid{grid-template-columns:1fr}}
+  .feat-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px 22px;box-shadow:var(--shadow);transition:.2s;position:relative;overflow:hidden}
+  .feat-card:hover{transform:translateY(-3px);border-color:#c7c8f5}
+  .feat-card .fi{font-size:30px;margin-bottom:12px;display:block}
+  .feat-card h3{font-size:15px;font-weight:800;margin-bottom:7px;line-height:1.35}
+  .feat-card p{font-size:13px;color:var(--ink2);line-height:1.7}
+  .feat-card .ftag{display:inline-block;font-size:11px;font-weight:700;color:var(--brand);background:var(--brand-soft);border-radius:99px;padding:3px 10px;margin-top:10px}
+
   /* ---------- Benefits (购买理由) ---------- */
   .bnf-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
   @media(max-width:900px){.bnf-grid{grid-template-columns:repeat(2,1fr)}}
@@ -288,8 +302,8 @@
 
 <section class="hero">
   <div class="hero-badge" data-i18n="hero_badge">✨ 已有 128,400+ 全球创作者在用</div>
-  <h1><span data-i18n="hero_title_1">一键去除</span> <span class="grad" data-i18n="hero_title_2">AI 味</span><br><span data-i18n="hero_title_3">让邮件、纪要、汇报像人写的一样</span></h1>
-  <p data-i18n="hero_sub">专为职场场景优化 — 邮件、会议纪要、汇报材料、调研报告，3 秒改写成自然有温度的人类表达，逐句对比修改痕迹。</p>
+  <h1><span data-i18n="hero_title_1">去掉 AI 的习惯</span><br><span class="grad" data-i18n="hero_title_2">保留你的习惯</span><br><span data-i18n="hero_title_3">独家白描文学算法，把文字从生成感带回生活感</span></h1>
+  <p data-i18n="hero_sub">不是把 AI 藏起来，而是把人重新写回来。删除套话，不删除个性；减少修辞，增加细节；打散整齐，恢复呼吸。</p>
   <div class="hero-stats">
     <div class="hero-stat"><b>98.2%</b><span data-i18n="stat_1">通过 AI 检测率</span></div>
     <div class="hero-stat"><b>3s</b><span data-i18n="stat_2">平均处理时间</span></div>
@@ -370,6 +384,16 @@
     <p class="sect-sub" data-i18n="tech_sub">我们不是简单的同义词替换 — 三项底层能力，让结果在 AI 检测器和人眼下都立得住。</p>
   </div>
   <div class="tech-grid" id="techGrid"></div>
+</section>
+
+<!-- ============ 产品特性：8大白描算法能力 ============ -->
+<section class="section" id="features">
+  <div class="section-head">
+    <div class="section-eyebrow" data-i18n="feat_eyebrow">✨ 白描算法</div>
+    <h2><span data-i18n="feat_title_1">不是把 AI 藏起来</span><br><span class="grad" data-i18n="feat_title_2">而是把人重新写回来</span></h2>
+    <p class="sect-sub" data-i18n="feat_sub">独家白描文学算法，从具体、克制和准确的表达原则出发，让每一段文字都有一个人写在背后。</p>
+  </div>
+  <div class="feat-grid" id="featGrid"></div>
 </section>
 
 <!-- ============ 为什么要去AI味：情感人文驱动 ============ -->

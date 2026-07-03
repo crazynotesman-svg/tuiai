@@ -7,10 +7,10 @@ const I18N = {
   zh: {
     nav_pricing: '定价', nav_reviews: '用户评价', nav_upgrade: '升级 Pro',
     nav_tech: '技术', nav_why: '为什么',
-    hero_badge: '✨ 已有 128,400+ 全球创作者在用',
-    hero_title_1: '一键去除', hero_title_2: 'AI 味',
-    hero_title_3: '让邮件、纪要、汇报像人写的一样',
-    hero_sub: '专为职场场景优化 — 邮件、会议纪要、汇报材料、调研报告，3 秒改写成自然有温度的人类表达，逐句对比修改痕迹。',
+    hero_badge: '✨ 已有 128,400+ 全球创作者选择白描算法',
+    hero_title_1: '去掉 AI 的习惯', hero_title_2: '保留你的习惯',
+    hero_title_3: '独家白描文学算法，把文字从生成感带回生活感',
+    hero_sub: '不是把 AI 藏起来，而是把人重新写回来。删除套话，不删除个性；减少修辞，增加细节；打散整齐，恢复呼吸。',
     stat_1: '通过 AI 检测率', stat_2: '平均处理时间', stat_3: '12,341 条评价', stat_4: '支持语言',
     panel_in: 'AI 原文', panel_out: '去味结果',
     btn_demo: '试试示例', btn_clear: '清空', btn_copy: '复制',
@@ -54,14 +54,19 @@ const I18N = {
     toast_pack_ok: '🎉 购买成功！已到账 10 次去味额度',
     toast_pro_ok: '👑 欢迎加入 Pro！已解锁无限次去味',
     confirm_order: '确认订单',
+    /* -- 特性区 (8 大产品特性) -- */
+    feat_eyebrow: '✨ 白描算法',
+    feat_title_1: '不是把 AI 藏起来',
+    feat_title_2: '而是把人重新写回来',
+    feat_sub: '独家白描文学算法，从具体、克制和准确的表达原则出发，让每一段文字都有一个人写在背后。',
   },
   en: {
     nav_pricing: 'Pricing', nav_reviews: 'Reviews', nav_upgrade: 'Upgrade to Pro',
     nav_tech: 'Technology', nav_why: 'Why',
     hero_badge: '✨ Trusted by 128,400+ creators worldwide',
-    hero_title_1: 'Remove the', hero_title_2: 'AI Smell',
-    hero_title_3: 'in one click — emails, meeting notes & reports.',
-    hero_sub: 'Built for the workplace — emails, meeting minutes, reports, research notes. Rewrite into natural, human prose in 3 seconds, with sentence-by-sentence diff.',
+    hero_title_1: 'Remove AI habits,', hero_title_2: 'keep your voice',
+    hero_title_3: 'Plain-style algorithm: from generated text back to lived writing.',
+    hero_sub: 'Not hiding AI — bringing the human back. Remove clichés, keep personality. Less rhetoric, more details.',
     stat_1: 'AI-detector bypass', stat_2: 'Avg. process time', stat_3: '12,341 reviews', stat_4: 'Languages',
     panel_in: 'AI Original', panel_out: 'Humanized Output',
     btn_demo: 'Try demo', btn_clear: 'Clear', btn_copy: 'Copy',
@@ -105,14 +110,19 @@ const I18N = {
     toast_pack_ok: '🎉 Purchased! 10 credits added to your account',
     toast_pro_ok: '👑 Welcome to Pro! Unlimited runs unlocked',
     confirm_order: 'Confirm order',
+    /* -- 特性区 (8 大产品特性) -- */
+    feat_eyebrow: '✨ Plain-style Algorithm',
+    feat_title_1: 'Not hiding AI —',
+    feat_title_2: 'bringing the human back',
+    feat_sub: 'Our plain-style literary algorithm returns writing to concrete facts and lived details, so every piece has a person behind it.',
   },
   ja: {
     nav_pricing: '料金', nav_reviews: 'レビュー', nav_upgrade: 'Pro にアップグレード',
     nav_tech: '技術', nav_why: 'なぜ',
-    hero_badge: '✨ 世界中で 128,400+ クリエイターが利用中',
-    hero_title_1: 'ワンクリックで', hero_title_2: 'AI 臭',
-    hero_title_3: 'を除去 — メール・議事録・レポートを人間らしく。',
-    hero_sub: '職場向けに最適化 — メール、議事録、報告書、リサーチノートを 3 秒で自然な人間文に書き換え、文単位で差分表示。',
+    hero_badge: '✨ 128,400+ のクリエイターが白描アルゴリズムを選択',
+    hero_title_1: 'AI の習慣を消し、', hero_title_2: 'あなたの声を残す',
+    hero_title_3: '独自の白描文学アルゴリズムで、生成された文字を生活感のある文章に。',
+    hero_sub: 'AI を隠すのではなく、人間を取り戻す。決まり文句を削除し、個性を残す。修辞を減らし、詳細を増やす。',
     stat_1: 'AI 検出回避率', stat_2: '平均処理時間', stat_3: '12,341 件のレビュー', stat_4: '対応言語',
     panel_in: 'AI 原文', panel_out: '書き換え結果',
     btn_demo: 'サンプル', btn_clear: 'クリア', btn_copy: 'コピー',
@@ -156,14 +166,19 @@ const I18N = {
     toast_pack_ok: '🎉 購入完了！10 回分を追加しました',
     toast_pro_ok: '👑 Pro へようこそ！無制限を解除',
     confirm_order: '注文確認',
+    /* -- 特性区 (8 大产品特性) -- */
+    feat_eyebrow: '✨ 白描アルゴリズム',
+    feat_title_1: 'AI を隠すのではなく',
+    feat_title_2: '人間を取り戻す',
+    feat_sub: '独自の白描文学アルゴリズムにより、文字を事実と詳細に戻し、すべての文章に人間がいることを感じさせます。',
   },
   es: {
     nav_pricing: 'Precios', nav_reviews: 'Opiniones', nav_upgrade: 'Pasar a Pro',
     nav_tech: 'Tecnología', nav_why: 'Por qué',
-    hero_badge: '✨ Usado por 128,400+ creadores en todo el mundo',
-    hero_title_1: 'Elimina el', hero_title_2: 'tono de IA',
-    hero_title_3: 'en un clic — emails, actas e informes humanos.',
-    hero_sub: 'Optimizado para el trabajo — emails, actas, informes y notas. Reescritura natural en 3 segundos con comparación frase a frase.',
+    hero_badge: '✨ 128,400+ creadores eligen el algoritmo de estilo llano',
+    hero_title_1: 'Elimina los hábitos de IA,', hero_title_2: 'guarda tu voz',
+    hero_title_3: 'Algoritmo de estilo llano: del texto generado a la escritura vivida.',
+    hero_sub: 'No ocultar la IA — recuperar lo humano. Elimina clichés, guarda la personalidad. Menos retórica, más detalles.',
     stat_1: 'Evasión de detectores', stat_2: 'Tiempo medio', stat_3: '12,341 reseñas', stat_4: 'Idiomas',
     panel_in: 'Texto original', panel_out: 'Resultado humano',
     btn_demo: 'Probar demo', btn_clear: 'Limpiar', btn_copy: 'Copiar',
@@ -207,6 +222,11 @@ const I18N = {
     toast_pack_ok: '🎉 ¡Compra realizada! 10 créditos añadidos',
     toast_pro_ok: '👑 ¡Bienvenido a Pro! Usos ilimitados',
     confirm_order: 'Confirmar pedido',
+    /* -- 特性区 (8 大产品特性) -- */
+    feat_eyebrow: '✨ Algoritmo de estilo llano',
+    feat_title_1: 'No ocultar la IA —',
+    feat_title_2: 'recuperar lo humano',
+    feat_sub: 'Nuestro algoritmo devuelve la escritura a hechos concretos y detalles vividos, para que cada texto tenga una persona detrás.',
   },
 };
 
@@ -387,6 +407,50 @@ const TECH_CARDS = {
       m1: '>0.96', m1l: 'Similitud',
       m2: '0', m2l: 'Info perdida',
     },
+  ],
+};
+
+/* ===================== 1.2.5 产品特性卡片（8 大白描能力） ===================== */
+const FEAT_CARDS = {
+  zh: [
+    { i: '📝', t: '独家白描文学算法', d: '从具体、克制和准确的表达原则出发，减少虚假修辞与概念堆砌，让文字重新落到事实与细节上。', tag: '核心算法' },
+    { i: '🧹', t: 'AI 写作习惯清理', d: '系统识别机械排比、标准开头、强行总结、过度解释和虚假升华等典型 AI 痕迹，逐一清除。', tag: '智能识别' },
+    { i: '🫁', t: '人类节奏重建', d: '打破过于整齐的句子和段落结构，恢复自然的轻重、停顿、转折与呼吸感。', tag: '节奏优化' },
+    { i: '🗣️', t: '个人语气保护', d: '保留作者原有的用词、情绪和观点棱角，不把每个人都修改成同一种"自然文风"。', tag: '个性保留' },
+    { i: '🙃', t: '不完美表达保留', d: '不过度修正口语、犹豫和轻微跳跃。因为可信的文字，不需要处处无懈可击。', tag: '人性回归' },
+    { i: '🗜️', t: '空洞信息压缩', d: '删除正确但无用的解释、重复论证和抽象废话，让每一句都承担真实信息。', tag: '信息压缩' },
+    { i: '🔇', t: '伪文学表达降噪', d: '减少批量生成的比喻、金句和情绪标签，不替读者规定应该如何感动。', tag: '降噪处理' },
+    { i: '🔒', t: '原意安全锁', d: '只改变表达方式，不擅自添加事实、修改观点或改变作者的真实立场。', tag: '安全第一' },
+  ],
+  en: [
+    { i: '📝', t: 'Plain-style Literary Algorithm', d: 'Rooted in concrete, restrained, accurate expression. Less rhetoric, more facts and details.', tag: 'Core' },
+    { i: '🧹', t: 'AI Habit Cleaning', d: 'Detects and removes mechanical parallels, standard openings, forced summaries, over-explaining and fake sublimation.', tag: 'Smart' },
+    { i: '🫁', t: 'Human Rhythm Restore', d: 'Breaks overly uniform sentence and paragraph structures. Restores natural pauses, turns and breathing space.', tag: 'Rhythm' },
+    { i: '🗣️', t: 'Personal Tone Keeper', d: "Keeps the author's original wording, emotion and edge. Doesn't homogenize everyone into one 'natural style'.", tag: 'Personal' },
+    { i: '🙃', t: 'Imperfection Keeper', d: 'Does not over-correct spoken hesitations, doubts and small jumps. Believable text does not need to be flawless.', tag: 'Human' },
+    { i: '🗜️', t: 'Empty Info Compression', d: 'Removes correct-but-useless explanations, repeated arguments and abstract filler. Every sentence carries real information.', tag: 'Compress' },
+    { i: '🔇', t: 'Pseudo-lit Denoising', d: "Reduces mass-generated metaphors, quotable lines and emotion tags. Doesn't tell the reader how to feel.", tag: 'Denoise' },
+    { i: '🔒', t: 'Meaning Safety Lock', d: 'Only changes expression. Never adds facts, modifies opinions, or shifts the author\'s actual stance.', tag: 'Safe' },
+  ],
+  ja: [
+    { i: '📝', t: '独自の白描文学アルゴリズム', d: '具体的で克制された正確な表現を基本とし、空虚な修辞や概念の積み重ねを減らし、文字を事実と詳細に戻す。', tag: '核心' },
+    { i: '🧹', t: 'AI 執筆習慣のクリーニング', d: '機械的な並列、定型の書き出し、強引なまとめ、過度な説明などの典型的な AI の痕跡を検出して削除。', tag: '検出' },
+    { i: '🫁', t: '人間のリズムの再構築', d: '均一すぎる文や段落の構造を崩し、自然な軽重、休止、転換と呼吸感を回復する。', tag: 'リズム' },
+    { i: '🗣️', t: '個人の語調の保護', d: '著者の元の言葉遣い、感情、意見の角を保持し、全員を同じ「自然な文体」に変えることはしない。', tag: '個性' },
+    { i: '🙃', t: '不完全な表現の保持', d: '口語、躊躇、軽微な跳躍を過度に修正しない。信頼できる文章は完璧である必要はない。', tag: '人間味' },
+    { i: '🗜️', t: '空虚な情報の圧縮', d: '正しいが役に立たない説明、繰り返しの議論、抽象的な無駄を削除し、すべての文に本当の情報を持たせる。', tag: '圧縮' },
+    { i: '🔇', t: '疑似文学表現のノイズ除去', d: '大量生成された比喩、名句、感情タグを減らし、読者にどう感動すべきかを规定しない。', tag: 'ノイズ除去' },
+    { i: '🔒', t: '原意セーフティロック', d: '表現方法のみを変更し、事実の追加、意見の修正、著者の真の立場の変更は一切しない。', tag: '安全' },
+  ],
+  es: [
+    { i: '📝', t: 'Algoritmo de estilo llano', d: 'Basado en expresión concreta, contenida y precisa. Menos retórica, más hechos y detalles.', tag: 'Núcleo' },
+    { i: '🧹', t: 'Limpieza de hábitos de IA', d: 'Detecta y elimina paralelismos mecánicos, aperturas estándar, resúmenes forzados, sobre-explicación y falsa sublimación.', tag: 'Inteligente' },
+    { i: '🫁', t: 'Restauración del ritmo humano', d: 'Rompe estructuras de oraciones y párrafos demasiado uniformes. Restaura pausas, giros y respiración natural.', tag: 'Ritmo' },
+    { i: '🗣️', t: 'Conservación del tono personal', d: 'Mantiene el vocabulario, emoción y matices del autor. No homogeniza a todos en un mismo "estilo natural".', tag: 'Personal' },
+    { i: '🙃', t: 'Conservación de lo imperfecto', d: 'No sobrecorrige dudas, hesitaciones y saltos menores. Un texto creíble no necesita ser impecable.', tag: 'Humano' },
+    { i: '🗜️', t: 'Compresión de información vacía', d: 'Elimina explicaciones correctas-pero-inútiles, argumentos repetidos y relleno abstracto. Cada frase lleva información real.', tag: 'Comprimir' },
+    { i: '🔇', t: 'Denuestreo de seudoliteratura', d: 'Reduce metáforas generadas masivamente, frases citables y etiquetas de emoción. No dice al lector cómo sentir.', tag: 'Denuestreo' },
+    { i: '🔒', t: 'Candado de seguridad de significado', d: 'Solo cambia la expresión. Nunca añade hechos, modifica opiniones ni cambia la postura real del autor.', tag: 'Seguro' },
   ],
 };
 
@@ -1006,6 +1070,16 @@ function renderCopyBlocks(){
         <div><b>${c.m1}</b><span>${c.m1l}</span></div>
         <div><b>${c.m2}</b><span>${c.m2l}</span></div>
       </div>
+    </div>`).join('');
+
+  // 产品特性卡片 (8 大白描能力)
+  const feats = FEAT_CARDS[lang] || FEAT_CARDS.en;
+  $('featGrid').innerHTML = feats.map(c => `
+    <div class="feat-card">
+      <span class="fi">${c.i}</span>
+      <h3>${c.t}</h3>
+      <p>${c.d}</p>
+      <span class="ftag">${c.tag}</span>
     </div>`).join('');
 
   // 情感金句 + 三张人文卡片
