@@ -1,0 +1,14 @@
+# Cloudflare Pages 配置（可选，多数情况在 Dashboard 配即可）
+# 本文件用于 wrangler 本地预览和部署
+
+name = "tuiai"
+compatibility_date = "2024-09-01"
+pages_build_output_dir = "."
+
+# 环境变量请在 Cloudflare Pages Dashboard → Settings → Environment variables 中配置：
+#   DEEPSEEK_API_KEY = sk-xxxxxxxxxxxxxxxxxxxxxxxx
+#
+# 可选：绑定 KV 做限流（先在 Dashboard 创建 KV namespace 名为 RATE_LIMIT）
+# [[kv_namespaces]]
+# binding = "RATE_LIMIT_KV"
+# id = "你的-KV-namespace-id"

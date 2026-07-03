@@ -1,0 +1,28 @@
+# 本地开发临时文件
+.DS_Store
+node_modules/
+.wrangler/
+.dev.vars
+
+# 环境变量与密钥（绝对不要提交）
+.env
+.env.local
+.env.production
+*.key
+secrets.json
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 日志
+*.log
+npm-debug.log*
+
+# 构建产物
+dist/
+build/
+.cache/

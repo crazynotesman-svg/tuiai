@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TuiAI · 一键去除AI味 | De-AI Your Writing</title>
+<style>
+  :root{
+    --bg:#f6f7fb; --card:#ffffff; --ink:#111827; --ink2:#4b5563; --ink3:#9ca3af;
+    --brand:#5b5bd6; --brand-2:#8b5cf6; --brand-soft:#eef0ff;
+    --green:#16a34a; --green-soft:#e7f7ee; --red:#dc2626; --red-soft:#fdecec;
+    --amber:#d97706; --amber-soft:#fef3e2;
+    --line:#e6e8f0; --radius:14px;
+    --shadow:0 1px 3px rgba(17,24,39,.05),0 10px 28px rgba(17,24,39,.07);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+  ::selection{background:var(--brand-soft)}
+
+  /* ---------- Header ---------- */
+  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:13px 24px}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px}
+  .logo-mark{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--brand),var(--brand-2));display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;font-weight:900}
+  .nav-right{display:flex;align-items:center;gap:14px}
+  .nav a{color:var(--ink2);text-decoration:none;font-size:14px}
+  .nav a:hover{color:var(--ink)}
+  .lang-select{position:relative}
+  .lang-btn{background:transparent;border:1px solid var(--line);border-radius:9px;padding:6px 11px;font-size:13px;color:var(--ink2);cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px}
+  .lang-btn:hover{border-color:var(--brand);color:var(--brand)}
+  .lang-menu{position:absolute;top:calc(100% + 6px);right:0;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:6px;min-width:160px;display:none;z-index:60}
+  .lang-menu.show{display:block}
+  .lang-menu button{display:flex;align-items:center;gap:9px;width:100%;border:none;background:transparent;padding:8px 11px;font-size:13.5px;border-radius:7px;cursor:pointer;font-family:inherit;color:var(--ink)}
+  .lang-menu button:hover{background:var(--brand-soft);color:var(--brand)}
+  .lang-menu button.sel{color:var(--brand);font-weight:600}
+  .quota-pill{font-size:13px;color:var(--brand);background:var(--brand-soft);border-radius:99px;padding:5px 13px;font-weight:600}
+  .quota-pill.pro{color:#b45309;background:linear-gradient(135deg,#fef3c7,#fde68a)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:none;border-radius:10px;cursor:pointer;font-size:14px;font-weight:600;padding:9px 18px;transition:.18s;font-family:inherit}
+  .btn-primary{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;box-shadow:0 4px 14px rgba(91,91,214,.32)}
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 22px rgba(91,91,214,.42)}
+  .btn-ghost{background:transparent;color:var(--ink2);border:1px solid var(--line)}
+  .btn-ghost:hover{border-color:var(--brand);color:var(--brand)}
+  .btn:disabled{opacity:.55;cursor:not-allowed;transform:none!important}
+
+  /* ---------- Hero ---------- */
+  .hero{max-width:920px;margin:0 auto;text-align:center;padding:54px 24px 28px}
+  .hero-badge{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--brand);background:var(--brand-soft);padding:6px 14px;border-radius:99px;font-weight:600;margin-bottom:18px}
+  .hero h1{font-size:46px;line-height:1.22;font-weight:800;letter-spacing:-.5px}
+  .hero h1 .grad{background:linear-gradient(135deg,var(--brand),var(--brand-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p{margin-top:14px;font-size:17px;color:var(--ink2)}
+  .hero-stats{display:flex;justify-content:center;gap:36px;margin-top:24px;flex-wrap:wrap}
+  .hero-stat b{font-size:22px;display:block;color:var(--ink)}
+  .hero-stat span{font-size:13px;color:var(--ink3)}
+
+  /* ---------- Scene tabs ---------- */
+  .wrap{max-width:1200px;margin:0 auto;padding:8px 24px 70px}
+  .scenes{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:18px 0 18px}
+  @media(max-width:900px){.scenes{grid-template-columns:repeat(2,1fr)}.hero h1{font-size:32px}}
+  .scene{background:var(--card);border:1.5px solid var(--line);border-radius:13px;padding:14px 16px;cursor:pointer;transition:.16s;position:relative}
+  .scene:hover{border-color:#c7c8f5;transform:translateY(-1px)}
+  .scene.active{border-color:var(--brand);background:linear-gradient(180deg,var(--brand-soft),#fff)}
+  .scene .ic{font-size:22px}
+  .scene .nm{font-size:14px;font-weight:700;margin-top:6px}
+  .scene .ds{font-size:12px;color:var(--ink3);margin-top:2px;line-height:1.4}
+  .scene .pro-flag{position:absolute;top:8px;right:8px;font-size:10px;color:#b45309;background:linear-gradient(135deg,#fde68a,#fcd34d);padding:2px 7px;border-radius:99px;font-weight:700}
+
+  /* ---------- Workbench ---------- */
+  .bench{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:900px){.bench{grid-template-columns:1fr}}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden}
+  .panel-head{display:flex;align-items:center;justify-content:space-between;padding:13px 18px;border-bottom:1px solid var(--line)}
+  .panel-title{font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px}
+  .dot{width:8px;height:8px;border-radius:50%}
+  .panel-tools{display:flex;align-items:center;gap:8px}
+  .mini-btn{font-size:12.5px;color:var(--ink2);background:#f3f5fa;border:none;border-radius:7px;padding:5px 11px;cursor:pointer;font-family:inherit;transition:.15s}
+  .mini-btn:hover{background:var(--brand-soft);color:var(--brand)}
+  .mini-btn.active{background:var(--brand);color:#fff}
+  textarea{width:100%;flex:1;min-height:340px;border:none;outline:none;resize:vertical;padding:18px;font-size:15px;line-height:1.9;font-family:inherit;color:var(--ink);background:transparent}
+  textarea::placeholder{color:var(--ink3)}
+  .panel-foot{display:flex;align-items:center;justify-content:space-between;padding:11px 18px;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink3);gap:10px;flex-wrap:wrap}
+  .out-body{position:relative;flex:1;min-height:340px}
+  .out-content{padding:18px;font-size:15px;line-height:1.9;white-space:pre-wrap;word-break:break-word;min-height:340px}
+  .out-content.empty{display:flex;align-items:center;justify-content:center;color:var(--ink3);font-size:14px;text-align:center}
+  del{background:var(--red-soft);color:var(--red);text-decoration:line-through;text-decoration-color:rgba(220,38,38,.45);border-radius:3px;padding:0 1px}
+  ins{background:var(--green-soft);color:var(--green);text-decoration:none;border-radius:3px;padding:0 1px}
+
+  .score-chip{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;padding:4px 11px;border-radius:99px}
+  .score-chip.bad{color:var(--red);background:var(--red-soft)}
+  .score-chip.good{color:var(--green);background:var(--green-soft)}
+  .score-chip.mid{color:var(--amber);background:var(--amber-soft)}
+
+  .action-bar{display:flex;align-items:center;justify-content:center;gap:14px;margin:22px 0 8px;flex-wrap:wrap}
+  .big-btn{font-size:16px;padding:14px 44px;border-radius:12px}
+  .intensity{display:flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:4px}
+  .intensity button{border:none;background:transparent;font-size:13px;padding:7px 14px;border-radius:8px;cursor:pointer;color:var(--ink2);font-family:inherit;font-weight:600}
+  .intensity button.active{background:var(--brand-soft);color:var(--brand)}
+
+  /* ---------- Scene tips ---------- */
+  .scene-tip{background:linear-gradient(135deg,#fff7ed,#fff);border:1px solid #fed7aa;border-radius:12px;padding:13px 16px;margin:16px 0 4px;display:flex;align-items:flex-start;gap:11px;font-size:13.5px;color:#9a3412}
+  .scene-tip .ti-ic{font-size:18px;flex-shrink:0;margin-top:1px}
+  .scene-tip b{display:block;margin-bottom:2px;font-size:13.5px}
+  .scene-tip span{color:#b45309}
+  .scene-tip .upsell{margin-left:auto;color:var(--brand);font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap;background:none;border:none;font-family:inherit}
+  .scene-tip .upsell:hover{text-decoration:underline}
+
+  /* ---------- Pricing ---------- */
+  .pricing{max-width:1200px;margin:0 auto;padding:30px 24px 80px;text-align:center}
+  .pricing h2{font-size:32px;font-weight:800}
+  .pricing .sub{color:var(--ink2);margin:10px 0 8px}
+  .guarantee-line{font-size:13px;color:var(--green);font-weight:600;margin-bottom:30px}
+  .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:1000px;margin:0 auto}
+  @media(max-width:900px){.plans{grid-template-columns:1fr}}
+  .plan{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:30px 26px;text-align:left;position:relative;box-shadow:var(--shadow);transition:.2s;display:flex;flex-direction:column}
+  .plan:hover{transform:translateY(-4px)}
+  .plan.featured{border:2px solid var(--brand);box-shadow:0 12px 36px rgba(91,91,214,.2)}
+  .plan-tag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;font-size:12px;font-weight:700;padding:5px 16px;border-radius:99px;white-space:nowrap}
+  .plan h3{font-size:17px;font-weight:700}
+  .plan .plan-desc{font-size:13px;color:var(--ink3);margin-top:4px}
+  .price{margin:18px 0 4px;display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+  .price b{font-size:38px;font-weight:800}
+  .price .unit{color:var(--ink3);font-size:14px}
+  .price-was{font-size:13px;color:var(--ink3);text-decoration:line-through}
+  .save-pill{display:inline-block;font-size:12px;color:var(--green);background:var(--green-soft);border-radius:99px;padding:3px 10px;font-weight:700}
+  .plan ul{list-style:none;margin:18px 0 22px;flex:1}
+  .plan li{font-size:13.5px;color:var(--ink2);padding:5px 0;display:flex;gap:9px;align-items:flex-start;line-height:1.5}
+  .plan li::before{content:"✓";color:var(--green);font-weight:800;flex-shrink:0}
+  .plan li.no::before{content:"—";color:var(--ink3)}
+  .plan li.no{color:var(--ink3)}
+  .plan .btn{width:100%}
+
+  /* ---------- Social proof ---------- */
+  .proof{max-width:1000px;margin:0 auto;padding:0 24px 70px}
+  .proof h2{text-align:center;font-size:26px;font-weight:800;margin-bottom:28px}
+  .proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media(max-width:900px){.proof-grid{grid-template-columns:1fr}}
+  .review{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:var(--shadow)}
+  .stars{color:#f59e0b;font-size:14px;letter-spacing:2px}
+  .review p{font-size:14px;color:var(--ink2);margin:10px 0 14px;line-height:1.65}
+  .reviewer{display:flex;align-items:center;gap:10px;font-size:13px}
+  .avatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px}
+  .reviewer b{display:block;color:var(--ink)}
+  .reviewer span{color:var(--ink3);font-size:12px}
+
+  /* ---------- Trust strip ---------- */
+  .trust-strip{max-width:1000px;margin:0 auto 60px;padding:0 24px;display:flex;justify-content:center;gap:30px;flex-wrap:wrap;font-size:13px;color:var(--ink3)}
+  .trust-strip span{display:inline-flex;align-items:center;gap:6px}
+
+  footer{border-top:1px solid var(--line);padding:26px;text-align:center;font-size:13px;color:var(--ink3)}
+
+  /* ---------- Section common ---------- */
+  .section{max-width:1180px;margin:0 auto;padding:48px 24px 16px}
+  .section-head{text-align:center;margin-bottom:36px}
+  .section-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--brand);background:var(--brand-soft);padding:5px 14px;border-radius:99px;font-weight:600;margin-bottom:14px}
+  .section h2{font-size:32px;font-weight:800;line-height:1.25;letter-spacing:-.3px}
+  .section h2 .grad{background:linear-gradient(135deg,var(--brand),var(--brand-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .section .sect-sub{font-size:16px;color:var(--ink2);margin-top:12px;max-width:680px;margin-left:auto;margin-right:auto}
+
+  /* ---------- Why us (技术优势) ---------- */
+  .tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  @media(max-width:900px){.tech-grid{grid-template-columns:1fr}}
+  .tech-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px;box-shadow:var(--shadow);position:relative;overflow:hidden;transition:.2s}
+  .tech-card:hover{transform:translateY(-4px);border-color:#c7c8f5}
+  .tech-card .tn{font-size:38px;font-weight:900;color:var(--brand-soft);position:absolute;top:14px;right:22px;letter-spacing:-2px}
+  .tech-card .ti{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;background:linear-gradient(135deg,var(--brand-soft),#fff);border:1px solid var(--line);margin-bottom:14px}
+  .tech-card h3{font-size:18px;font-weight:800;margin-bottom:8px}
+  .tech-card p{font-size:14px;color:var(--ink2);line-height:1.7}
+  .tech-card .tmeta{display:flex;gap:14px;margin-top:14px;padding-top:14px;border-top:1px dashed var(--line)}
+  .tech-card .tmeta div{flex:1}
+  .tech-card .tmeta b{display:block;font-size:18px;color:var(--brand);font-weight:800}
+  .tech-card .tmeta span{font-size:11.5px;color:var(--ink3)}
+
+  /* ---------- Why de-AI (情感人文) ---------- */
+  .why{background:linear-gradient(180deg,#fff 0,#fafaff 60%,#fff 100%);border-radius:24px;padding:48px 36px;border:1px solid var(--line)}
+  .why-quote{font-size:24px;font-weight:700;line-height:1.45;text-align:center;color:var(--ink);max-width:780px;margin:0 auto 30px;letter-spacing:-.2px}
+  .why-quote em{font-style:normal;background:linear-gradient(180deg,transparent 62%,#fde68a 62%);padding:0 4px}
+  .why-quote-by{display:block;text-align:center;font-size:13px;color:var(--ink3);font-weight:500;margin-top:14px}
+  .why-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:14px}
+  @media(max-width:900px){.why-cards{grid-template-columns:1fr}.why-quote{font-size:20px}}
+  .why-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 22px 24px;display:flex;gap:14px;align-items:flex-start}
+  .why-card .wi{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+  .why-card.c1 .wi{background:#fef3c7;color:#b45309}
+  .why-card.c2 .wi{background:#dcfce7;color:#15803d}
+  .why-card.c3 .wi{background:#dbeafe;color:#1d4ed8}
+  .why-card h4{font-size:15.5px;font-weight:800;margin-bottom:5px}
+  .why-card p{font-size:13.5px;color:var(--ink2);line-height:1.7}
+
+  /* ---------- Benefits (购买理由) ---------- */
+  .bnf-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  @media(max-width:900px){.bnf-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.bnf-grid{grid-template-columns:1fr}}
+  .bnf{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px 20px;text-align:center;transition:.2s;position:relative}
+  .bnf:hover{transform:translateY(-3px);border-color:#c7c8f5;box-shadow:var(--shadow)}
+  .bnf .bi{font-size:30px;margin-bottom:10px;display:block}
+  .bnf .bnum{font-size:30px;font-weight:900;background:linear-gradient(135deg,var(--brand),var(--brand-2));-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-1px}
+  .bnf h4{font-size:14.5px;font-weight:800;margin:6px 0 6px}
+  .bnf p{font-size:13px;color:var(--ink2);line-height:1.55}
+
+  .cta-band{margin:34px auto 0;max-width:780px;text-align:center;background:linear-gradient(135deg,#4338ca,#7c3aed);color:#fff;border-radius:18px;padding:30px 24px;box-shadow:0 16px 48px rgba(79,70,229,.32)}
+  .cta-band h3{font-size:22px;font-weight:800;margin-bottom:8px}
+  .cta-band p{font-size:14.5px;opacity:.9;margin-bottom:18px}
+  .cta-band .btn{background:#fff;color:var(--brand);font-weight:700;padding:12px 28px;font-size:15px;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+  .cta-band .btn:hover{transform:translateY(-1px);box-shadow:0 10px 28px rgba(0,0,0,.25)}
+  .cta-band small{display:block;margin-top:10px;font-size:12px;opacity:.75}
+
+  /* ---------- Modal ---------- */
+  .modal-mask{position:fixed;inset:0;background:rgba(20,24,40,.55);backdrop-filter:blur(4px);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
+  .modal-mask.show{display:flex;animation:fadeIn .2s}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  @keyframes popIn{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
+  .paywall{background:#fff;border-radius:20px;max-width:820px;width:100%;overflow:hidden;animation:popIn .25s;max-height:94vh;overflow-y:auto}
+  .pw-head{background:linear-gradient(135deg,#4338ca,#7c3aed);color:#fff;padding:28px 32px 24px;position:relative;text-align:center}
+  .pw-close{position:absolute;top:14px;right:16px;background:rgba(255,255,255,.18);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:15px}
+  .pw-head h3{font-size:23px;font-weight:800}
+  .pw-head p{font-size:14px;opacity:.85;margin-top:6px}
+  .countdown{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.16);border-radius:99px;padding:7px 18px;margin-top:14px;font-size:13.5px;font-weight:600}
+  .countdown b{font-variant-numeric:tabular-nums;background:rgba(0,0,0,.25);border-radius:6px;padding:2px 7px}
+  .pw-body{padding:24px 32px 28px}
+  .pw-plans{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
+  @media(max-width:640px){.pw-plans{grid-template-columns:1fr}}
+  .pw-plan{border:2px solid var(--line);border-radius:14px;padding:18px;cursor:pointer;position:relative;transition:.15s}
+  .pw-plan:hover{border-color:#c7c8f5}
+  .pw-plan.sel{border-color:var(--brand);background:var(--brand-soft)}
+  .pw-plan .r{position:absolute;top:16px;right:16px;width:19px;height:19px;border-radius:50%;border:2px solid var(--line)}
+  .pw-plan.sel .r{border-color:var(--brand);background:var(--brand);box-shadow:inset 0 0 0 3.5px #fff}
+  .pw-plan h4{font-size:15px;font-weight:700;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .hot-tag{font-size:11px;color:#fff;background:linear-gradient(135deg,#f59e0b,#ef4444);border-radius:99px;padding:2px 9px;font-weight:700}
+  .pw-price{margin-top:8px}
+  .pw-price b{font-size:25px;font-weight:800}
+  .pw-price span{font-size:13px;color:var(--ink3)}
+  .pw-price .was{text-decoration:line-through;margin-left:7px}
+  .pw-plan .note{font-size:12.5px;color:var(--ink2);margin-top:6px;line-height:1.5}
+  .pw-cta{width:100%;font-size:16.5px;padding:15px;border-radius:12px}
+  .pw-trust{display:flex;justify-content:center;gap:22px;margin-top:16px;font-size:12.5px;color:var(--ink3);flex-wrap:wrap}
+  .pw-social{margin-top:14px;background:#f7f8fc;border-radius:12px;padding:12px 16px;font-size:13px;color:var(--ink2);display:flex;align-items:center;gap:10px}
+  .live-dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 1.6s infinite;flex-shrink:0}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+  /* ---------- Pay modal ---------- */
+  .pay-box{background:#fff;border-radius:20px;max-width:460px;width:100%;padding:30px;animation:popIn .25s;max-height:92vh;overflow-y:auto}
+  .pay-box h3{font-size:19px;text-align:center;margin-bottom:4px}
+  .pay-box .pay-desc{font-size:13.5px;color:var(--ink2);text-align:center}
+  .pay-box .amt{font-size:34px;font-weight:800;color:var(--brand);margin:14px 0 6px;text-align:center}
+  .pay-box .amt-note{font-size:12px;color:var(--ink3);text-align:center;margin-bottom:18px}
+  .pay-section-title{font-size:12px;color:var(--ink3);text-transform:uppercase;letter-spacing:.6px;margin:12px 0 8px;font-weight:700}
+  .pay-list{display:grid;gap:9px}
+  .pay-method{display:flex;align-items:center;gap:12px;padding:13px 14px;border:1.5px solid var(--line);border-radius:11px;cursor:pointer;transition:.15s;background:#fff}
+  .pay-method:hover{border-color:#c7c8f5}
+  .pay-method.sel{border-color:var(--brand);background:var(--brand-soft)}
+  .pay-method .pm-ic{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;color:#fff;flex-shrink:0}
+  .pay-method .pm-name{flex:1;font-size:14px;font-weight:600;color:var(--ink)}
+  .pay-method .pm-name small{display:block;font-weight:400;color:var(--ink3);font-size:11.5px;margin-top:1px}
+  .pay-method .pm-tag{font-size:11px;font-weight:700;background:var(--brand-soft);color:var(--brand);padding:2px 8px;border-radius:99px}
+  .pay-confirm{margin-top:18px;width:100%;font-size:15.5px;padding:13px;border-radius:12px}
+  .pay-cancel{background:transparent;color:var(--ink3);border:none;margin-top:10px;cursor:pointer;font-size:13px;font-family:inherit;width:100%;text-align:center;padding:6px}
+  .pay-secure{display:flex;justify-content:center;gap:14px;margin-top:14px;font-size:11.5px;color:var(--ink3);flex-wrap:wrap}
+
+  .toast{position:fixed;left:50%;bottom:36px;transform:translateX(-50%) translateY(20px);background:#1a2233;color:#fff;font-size:14px;padding:11px 22px;border-radius:99px;opacity:0;transition:.25s;z-index:200;pointer-events:none;box-shadow:0 8px 24px rgba(0,0,0,.25);max-width:90vw;text-align:center}
+  .toast.show{opacity:1;transform:translateX(-50%)}
+
+  .spin{display:inline-block;width:16px;height:16px;border:2.5px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:rot .7s linear infinite}
+  @keyframes rot{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo"><div class="logo-mark">T</div><span>TuiAI</span></div>
+    <div class="nav-right">
+      <a href="#tech" data-i18n="nav_tech">技术</a>
+      <a href="#why" data-i18n="nav_why">为什么</a>
+      <a href="#pricing" data-i18n="nav_pricing">定价</a>
+      <a href="#reviews" data-i18n="nav_reviews">用户评价</a>
+      <div class="lang-select">
+        <button class="lang-btn" onclick="toggleLangMenu(event)"><span id="curLang">🌐 简体中文</span> ▾</button>
+        <div class="lang-menu" id="langMenu">
+          <button data-lang="zh">🇨🇳 简体中文</button>
+          <button data-lang="en">🇺🇸 English</button>
+          <button data-lang="ja">🇯🇵 日本語</button>
+          <button data-lang="es">🇪🇸 Español</button>
+        </div>
+      </div>
+      <span class="quota-pill" id="quotaPill">—</span>
+      <button class="btn btn-primary" onclick="openPaywall('nav')" data-i18n="nav_upgrade">升级 Pro</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-badge" data-i18n="hero_badge">✨ 已有 128,400+ 全球创作者在用</div>
+  <h1><span data-i18n="hero_title_1">一键去除</span> <span class="grad" data-i18n="hero_title_2">AI 味</span><br><span data-i18n="hero_title_3">让邮件、纪要、汇报像人写的一样</span></h1>
+  <p data-i18n="hero_sub">专为职场场景优化 — 邮件、会议纪要、汇报材料、调研报告，3 秒改写成自然有温度的人类表达，逐句对比修改痕迹。</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><b>98.2%</b><span data-i18n="stat_1">通过 AI 检测率</span></div>
+    <div class="hero-stat"><b>3s</b><span data-i18n="stat_2">平均处理时间</span></div>
+    <div class="hero-stat"><b>4.9 ★</b><span data-i18n="stat_3">12,341 条评价</span></div>
+    <div class="hero-stat"><b>30+</b><span data-i18n="stat_4">支持语言</span></div>
+  </div>
+</section>
+
+<main class="wrap">
+
+  <!-- 场景选择 -->
+  <div class="scenes" id="sceneList"></div>
+
+  <!-- 场景化提示 + 升级钩子 -->
+  <div class="scene-tip" id="sceneTip" style="display:none">
+    <span class="ti-ic">💡</span>
+    <div style="flex:1">
+      <b id="tipTitle"></b>
+      <span id="tipBody"></span>
+    </div>
+    <button class="upsell" onclick="openPaywall('scene')" id="tipUpsell"></button>
+  </div>
+
+  <div class="bench">
+    <!-- 输入面板 -->
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title"><span class="dot" style="background:#94a3b8"></span><span data-i18n="panel_in">AI 原文</span></div>
+        <div class="panel-tools">
+          <button class="mini-btn" onclick="loadDemo()" data-i18n="btn_demo">试试示例</button>
+          <button class="mini-btn" onclick="clearInput()" data-i18n="btn_clear">清空</button>
+        </div>
+      </div>
+      <textarea id="input" placeholder=""></textarea>
+      <div class="panel-foot">
+        <span id="inCount">0</span>
+        <span id="inScore"></span>
+      </div>
+    </div>
+
+    <!-- 输出面板 -->
+    <div class="panel" id="outPanel">
+      <div class="panel-head">
+        <div class="panel-title"><span class="dot" style="background:var(--green)"></span><span data-i18n="panel_out">去味结果</span></div>
+        <div class="panel-tools">
+          <button class="mini-btn active" id="viewDiff" onclick="setView('diff')" data-i18n="view_diff">对比视图</button>
+          <button class="mini-btn" id="viewClean" onclick="setView('clean')" data-i18n="view_clean">纯净结果</button>
+          <button class="mini-btn" onclick="copyResult()" data-i18n="btn_copy">复制</button>
+        </div>
+      </div>
+      <div class="out-body" id="outBody">
+        <div class="out-content empty" id="output" data-i18n="out_empty">改写结果会出现在这里<br>红色 = 删除的 AI 味表达 · 绿色 = 替换后的自然表达</div>
+      </div>
+      <div class="panel-foot">
+        <span id="outCount"></span>
+        <span id="outScore"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="action-bar">
+    <div class="intensity" id="intensity">
+      <button data-level="light" onclick="setLevel('light',this)" data-i18n="lv_light">轻度润色</button>
+      <button data-level="std" class="active" onclick="setLevel('std',this)" data-i18n="lv_std">标准去味</button>
+      <button data-level="deep" onclick="setLevel('deep',this)" data-i18n="lv_deep">深度重写</button>
+    </div>
+    <button class="btn btn-primary big-btn" id="goBtn" onclick="humanize()">
+      <span data-i18n="btn_go">✨ 去除 AI 味</span>
+    </button>
+  </div>
+</main>
+
+<!-- ============ 技术优势：为什么我们能做好 ============ -->
+<section class="section" id="tech">
+  <div class="section-head">
+    <div class="section-eyebrow" data-i18n="tech_eyebrow">🔬 核心技术</div>
+    <h2><span data-i18n="tech_title_1">为什么 TuiAI 能改得</span> <span class="grad" data-i18n="tech_title_2">像人写的</span></h2>
+    <p class="sect-sub" data-i18n="tech_sub">我们不是简单的同义词替换 — 三项底层能力，让结果在 AI 检测器和人眼下都立得住。</p>
+  </div>
+  <div class="tech-grid" id="techGrid"></div>
+</section>
+
+<!-- ============ 为什么要去AI味：情感人文驱动 ============ -->
+<section class="section" id="why">
+  <div class="section-head">
+    <div class="section-eyebrow" data-i18n="why_eyebrow">💭 为什么这件事重要</div>
+    <h2 data-i18n="why_title">每一段文字，都应该有<span class="grad" data-i18n="why_title_2"> 一个人在背后</span></h2>
+  </div>
+  <div class="why">
+    <p class="why-quote" id="whyQuote"></p>
+    <div class="why-cards" id="whyCards"></div>
+  </div>
+</section>
+
+<!-- ============ 去AI后能给你带来什么：购买驱动 ============ -->
+<section class="section" id="benefits">
+  <div class="section-head">
+    <div class="section-eyebrow" data-i18n="bnf_eyebrow">✨ 你能立刻拿到的</div>
+    <h2><span data-i18n="bnf_title_1">去AI味之后，</span><span class="grad" data-i18n="bnf_title_2">真实发生的改变</span></h2>
+    <p class="sect-sub" data-i18n="bnf_sub">来自 128,400+ 真实用户在第一个月内反馈的数据。</p>
+  </div>
+  <div class="bnf-grid" id="bnfGrid"></div>
+
+  <div class="cta-band">
+    <h3 id="ctaTitle"></h3>
+    <p id="ctaSub"></p>
+    <button class="btn" onclick="openPaywall('cta')" id="ctaBtn"></button>
+    <small id="ctaSmall"></small>
+  </div>
+</section>
+
+<!-- 定价 -->
+<section class="pricing" id="pricing">
+  <h2 data-i18n="pr_title">简单透明的定价</h2>
+  <p class="sub" data-i18n="pr_sub">先免费用，觉得好再付费。每天 3 次免费额度，无需注册。</p>
+  <p class="guarantee-line" data-i18n="pr_guard">🛡️ 7 天无理由退款 · 不满意全额退</p>
+  <div class="plans">
+    <div class="plan">
+      <h3 data-i18n="pl_single">单次购买</h3>
+      <p class="plan-desc" data-i18n="pl_single_d">偶尔用一下，按需付费</p>
+      <div class="price"><b id="prSingle">¥9.9</b><span class="unit" data-i18n="pl_single_u">/ 10 次</span></div>
+      <ul id="ulSingle"></ul>
+      <button class="btn btn-ghost" onclick="startPay('single')" data-i18n="btn_buy_pack">购买次数包</button>
+    </div>
+    <div class="plan featured">
+      <div class="plan-tag" data-i18n="pl_top">🔥 87% 用户选择</div>
+      <h3 data-i18n="pl_monthly">Pro 月度订阅</h3>
+      <p class="plan-desc" data-i18n="pl_monthly_d">职场高频场景的最优解</p>
+      <div class="price"><b id="prMonthly">¥29</b><span class="unit" data-i18n="pl_monthly_u">/ 月</span><span class="price-was" id="prMonthlyWas">¥49</span><span class="save-pill" data-i18n="pl_off">限时 6 折</span></div>
+      <ul id="ulMonthly"></ul>
+      <button class="btn btn-primary" onclick="startPay('monthly')" data-i18n="btn_sub_month">立即订阅 · 每天不到 1 元</button>
+    </div>
+    <div class="plan">
+      <h3 data-i18n="pl_yearly">Pro 年度订阅</h3>
+      <p class="plan-desc" data-i18n="pl_yearly_d">长期主义者，省得更多</p>
+      <div class="price"><b id="prYearly">¥199</b><span class="unit" data-i18n="pl_yearly_u">/ 年</span><span class="price-was" id="prYearlyWas">¥348</span><span class="save-pill" data-i18n="pl_save">省 43%</span></div>
+      <ul id="ulYearly"></ul>
+      <button class="btn btn-ghost" onclick="startPay('yearly')" data-i18n="btn_sub_year">订阅年度版</button>
+    </div>
+  </div>
+</section>
+
+<!-- 用户评价 -->
+<section class="proof" id="reviews">
+  <h2 data-i18n="rv_title">全球用户这样说</h2>
+  <div class="proof-grid" id="reviewGrid"></div>
+</section>
+
+<div class="trust-strip">
+  <span>🔒 <span data-i18n="ts_1">256-bit 加密传输</span></span>
+  <span>🛡️ <span data-i18n="ts_2">7 天无理由退款</span></span>
+  <span>💬 <span data-i18n="ts_3">24/7 客服支持</span></span>
+  <span>🌍 <span data-i18n="ts_4">支持 180+ 国家</span></span>
+</div>
+
+<footer>TuiAI · De-AI Your Writing · <span data-i18n="ft">本页面为产品演示原型，支付流程为模拟</span></footer>
+
+<!-- 付费墙弹窗 -->
+<div class="modal-mask" id="paywallMask">
+  <div class="paywall">
+    <div class="pw-head">
+      <button class="pw-close" onclick="closePaywall()">✕</button>
+      <h3 id="pwTitle"></h3>
+      <p id="pwSub"></p>
+      <div class="countdown"><span data-i18n="cd_label">⚡ 新用户限时 6 折，</span><b id="cdM">14</b> : <b id="cdS">59</b> <span data-i18n="cd_after">后失效</span></div>
+    </div>
+    <div class="pw-body">
+      <div class="pw-plans">
+        <div class="pw-plan sel" id="pwMonthly" onclick="selPlan('monthly')">
+          <div class="r"></div>
+          <h4><span data-i18n="pl_monthly">Pro 月度订阅</span> <span class="hot-tag" data-i18n="pw_best">最划算</span></h4>
+          <div class="pw-price"><b id="pwPrMonthly">¥29</b><span data-i18n="pl_monthly_u">/月</span><span class="was" id="pwPrMonthlyWas">¥49</span></div>
+          <p class="note" data-i18n="pw_monthly_note">无限次 · 不限字数 · 4 大场景全部解锁 · 每天不到 1 元</p>
+        </div>
+        <div class="pw-plan" id="pwSingle" onclick="selPlan('single')">
+          <div class="r"></div>
+          <h4 data-i18n="pw_pack">次数包</h4>
+          <div class="pw-price"><b id="pwPrSingle">¥9.9</b><span data-i18n="pl_single_u">/10 次</span></div>
+          <p class="note" data-i18n="pw_pack_note">永久有效 · 适合轻度使用</p>
+        </div>
+      </div>
+      <button class="btn btn-primary pw-cta" id="pwCta" onclick="payFromWall()"></button>
+      <div class="pw-trust">
+        <span data-i18n="pw_trust_1">🛡️ 7 天无理由退款</span>
+        <span data-i18n="pw_trust_2">🔒 随时可取消</span>
+        <span data-i18n="pw_trust_3">💬 专属客服</span>
+      </div>
+      <div class="pw-social"><span class="live-dot"></span><span id="liveMsg"></span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 支付弹窗：多支付方式 -->
+<div class="modal-mask" id="payMask">
+  <div class="pay-box">
+    <h3 id="payTitle"></h3>
+    <p class="pay-desc" id="payDesc"></p>
+    <div class="amt" id="payAmt">¥29.00</div>
+    <div class="amt-note" id="payAmtNote"></div>
+
+    <div class="pay-section-title" data-i18n="pay_method">支付方式</div>
+    <div class="pay-list" id="payList"></div>
+
+    <button class="btn btn-primary pay-confirm" onclick="finishPay()" id="payConfirm"></button>
+    <button class="pay-cancel" onclick="closePay()" data-i18n="pay_cancel">暂不支付</button>
+
+    <div class="pay-secure">
+      <span>🔒 <span data-i18n="pay_secure_1">SSL 加密</span></span>
+      <span>🛡️ <span data-i18n="pay_secure_2">PCI-DSS 认证</span></span>
+      <span>↩️ <span data-i18n="pay_secure_3">7 天退款</span></span>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
