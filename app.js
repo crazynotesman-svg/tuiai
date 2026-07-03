@@ -248,11 +248,7 @@ const COPY_BLOCKS = {
     bnf_title_1: '去AI味之后，',
     bnf_title_2: '真实发生的改变',
     bnf_sub: '来自 128,400+ 真实用户在第一个月内反馈的数据。',
-    cta_title: '别让 AI 替你说话',
-    cta_sub: '今天起，让每一封邮件、每一份汇报，都带着你自己的温度。',
-    cta_btn: '✨ 立即解锁 Pro · 限时 6 折',
-    cta_small: '🛡️ 7 天无理由退款 · 30 秒完成订阅',
-  },
+    rv_title: '全球用户这样说',
   en: {
     tech_eyebrow: '🔬 Core Technology',
     tech_title_1: 'Why TuiAI sounds',
@@ -267,11 +263,8 @@ const COPY_BLOCKS = {
     bnf_title_1: 'Real changes ',
     bnf_title_2: 'after going human',
     bnf_sub: 'Self-reported by 128,400+ users in their first month.',
-    cta_title: "Don't let AI speak for you",
-    cta_sub: 'Starting today, let every email and report carry your own voice again.',
-    cta_btn: '✨ Unlock Pro · 40% off — today only',
-    cta_small: '🛡️ 7-day refund · subscribe in 30 seconds',
-  },
+    rv_title: 'What users worldwide say',
+    ts_1: '256-bit encryption', ts_4: '180+ countries',
   ja: {
     tech_eyebrow: '🔬 コア技術',
     tech_title_1: 'TuiAI が',
@@ -286,11 +279,8 @@ const COPY_BLOCKS = {
     bnf_title_1: 'AI 臭を取った後の',
     bnf_title_2: '本当の変化',
     bnf_sub: '128,400+ ユーザーが利用 1 ヶ月目に報告した実データ。',
-    cta_title: 'AI にあなたを代弁させない',
-    cta_sub: '今日から、メールも報告書も、あなた自身の温度で。',
-    cta_btn: '✨ Pro を解除 · 期間限定 40% OFF',
-    cta_small: '🛡️ 7 日間返金 · 30 秒で購読完了',
-  },
+    rv_title: '世界中のユーザーの声',
+    ts_1: '256-bit 暗号化', ts_4: '180+ ヶ国対応',
   es: {
     tech_eyebrow: '🔬 Tecnología clave',
     tech_title_1: 'Por qué TuiAI suena',
@@ -305,11 +295,8 @@ const COPY_BLOCKS = {
     bnf_title_1: 'Cambios reales ',
     bnf_title_2: 'al recuperar tu voz',
     bnf_sub: 'Reportado por 128,400+ usuarios en su primer mes.',
-    cta_title: 'No dejes que la IA hable por ti',
-    cta_sub: 'Desde hoy, que cada email e informe lleve tu propia voz.',
-    cta_btn: '✨ Desbloquear Pro · 40% DTO. hoy',
-    cta_small: '🛡️ Reembolso 7 días · suscríbete en 30 seg.',
-  },
+    rv_title: 'Lo que dicen los usuarios',
+    ts_1: 'Cifrado 256-bit', ts_4: '180+ países',
 };
 // 把文案块合并进 I18N
 Object.keys(COPY_BLOCKS).forEach(k => Object.assign(I18N[k], COPY_BLOCKS[k]));
@@ -1104,12 +1091,6 @@ function renderCopyBlocks(){
       <h4>${b.t}</h4>
       <p>${b.d}</p>
     </div>`).join('');
-
-  // CTA 横幅
-  $('ctaTitle').textContent = cb.cta_title;
-  $('ctaSub').textContent = cb.cta_sub;
-  $('ctaBtn').textContent = cb.cta_btn;
-  $('ctaSmall').textContent = cb.cta_small;
 }
 
 function renderScenes(){
