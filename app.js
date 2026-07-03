@@ -543,7 +543,7 @@ const SCENES = {
     },
   },
   meeting: {
-    icon: '📋', pro: true,
+    icon: '📋', pro: false,
     names: { zh:'会议纪要', en:'Meeting Notes', ja:'議事録', es:'Actas' },
     desc:  { zh:'录音转写后润色', en:'Polish transcripts', ja:'文字起こしの整形', es:'Pulir transcripciones' },
     placeholder: {
@@ -560,7 +560,7 @@ const SCENES = {
     },
   },
   report: {
-    icon: '📊', pro: true,
+    icon: '📊', pro: false,
     names: { zh:'汇报 / 述职材料', en:'Report / Review', ja:'報告書 / 評価', es:'Informe / Revisión' },
     desc:  { zh:'周报、月报、年终述职', en:'Weekly, monthly, year-end', ja:'週報・月報・年度評価', es:'Semanal, mensual, anual' },
     placeholder: {
@@ -577,7 +577,7 @@ const SCENES = {
     },
   },
   research: {
-    icon: '🔍', pro: true,
+    icon: '🔍', pro: false,
     names: { zh:'调研 / 分析报告', en:'Research / Analysis', ja:'調査 / 分析', es:'Investigación' },
     desc:  { zh:'用户调研、市场分析', en:'User research, market', ja:'ユーザー調査・市場', es:'Usuarios, mercado' },
     placeholder: {
@@ -1115,7 +1115,6 @@ function renderCopyBlocks(){
 function renderScenes(){
   $('sceneList').innerHTML = Object.entries(SCENES).map(([k,s]) => `
     <div class="scene ${k===scene?'active':''}" data-scene="${k}" onclick="applyScene('${k}')">
-      ${s.pro ? '<span class="pro-flag">PRO</span>' : ''}
       <div class="ic">${s.icon}</div>
       <div class="nm">${s.names[lang] || s.names.en}</div>
       <div class="ds">${s.desc[lang] || s.desc.en}</div>
@@ -1125,31 +1124,14 @@ function renderScenes(){
 function applyScene(k, silent){
   const sc = SCENES[k];
   if(!sc) return;
-  // Pro 场景拦截：非 Pro 直接弹付费墙，但允许保留 UI 选中以制造期待
-  if(sc.pro && !isPro()){
-    document.querySelectorAll('.scene').forEach(el => el.classList.toggle('active', el.dataset.scene === k));
-    scene = k;
-    $('input').placeholder = sc.placeholder[lang] || sc.placeholder.en;
-    const [ti, ds] = sc.tip[lang] || sc.tip.en;
-    $('tipTitle').textContent = ti;
-    $('tipBody').textContent = ' ' + ds;
-    $('tipUpsell').textContent = lang==='zh' ? '解锁此场景 →' : lang==='ja' ? '解除する →' : lang==='es' ? 'Desbloquear →' : 'Unlock now →';
-    $('sceneTip').style.display = 'flex';
-    if(!silent){
-      const tpl = t('paywall_scene_s').replace('{name}', sc.names[lang] || sc.names.en);
-      openPaywall('scene', t('paywall_scene_t'), tpl);
-    }
-    return;
-  }
   scene = k;
   document.querySelectorAll('.scene').forEach(el => el.classList.toggle('active', el.dataset.scene === k));
   $('input').placeholder = sc.placeholder[lang] || sc.placeholder.en;
   const [ti, ds] = sc.tip[lang] || sc.tip.en;
   $('tipTitle').textContent = ti;
   $('tipBody').textContent = ' ' + ds;
-  $('tipUpsell').textContent = sc.pro ? (lang==='zh'?'已解锁 ✓':'Unlocked ✓') : (lang==='zh'?'升级 Pro →':'Go Pro →');
+  $('tipUpsell').textContent = '';
   $('sceneTip').style.display = 'flex';
-  if(sc.pro && isPro()){ $('tipUpsell').onclick = ()=>{}; } else { $('tipUpsell').onclick = ()=>openPaywall('scene'); }
 }
 
 function setLevel(l, btn){
@@ -1185,17 +1167,14 @@ function scoreChip(s, label){
 
 function renderQuota(){
   const pill = $('quotaPill');
-  if(isPro()){ pill.textContent = t('quota_pro'); pill.className = 'quota-pill pro'; }
-  else if(state.credits > 0){ pill.textContent = t('quota_credits', state.credits, remainFree(), FREE_DAILY); pill.className = 'quota-pill'; }
-  else { pill.textContent = t('quota_free', remainFree(), FREE_DAILY); pill.className = 'quota-pill'; }
+  pill.textContent = lang==='zh' ? '免费使用' : lang==='ja' ? '無料で利用' : lang==='es' ? 'Gratis' : 'Free';
+  pill.className = 'quota-pill free';
 }
 
 /* ===================== 9. 核心动作 ===================== */
 async function humanize(){
   const text = $('input').value;
   if(!text.trim()){ toast(t('toast_paste')); return; }
-  if(SCENES[scene].pro && !isPro()){ openPaywall('scene'); return; }
-  if(!canUse()){ openPaywall('quota'); return; }
 
   const btn = $('goBtn');
   btn.disabled = true;
@@ -1210,14 +1189,9 @@ async function humanize(){
 
   lastOrig = text;
   lastResult = result;
-  consume();
   renderOutput();
   btn.disabled = false;
   btn.innerHTML = `<span data-i18n="btn_go">${t('btn_go')}</span>`;
-  if(!isPro() && state.credits === 0 && remainFree() === 0){
-    toast(t('toast_quota'));
-    setTimeout(() => openPaywall('lastfree'), 1400);
-  }
 }
 
 const DEMO = {
