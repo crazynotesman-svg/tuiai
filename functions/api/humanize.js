@@ -18,7 +18,7 @@ const SYSTEM_PROMPTS = {
 4. 长句拆短，超过 30 字的逗号链中间用句号断开
 5. 保留作者本人的语气和立场，不要加任何没有的观点
 6. 不要加标题、不要加解释、不要加"以下是改写后的内容"之类的元话语，直接输出改写结果
-7. 保持原文的段落结构（换行位置不变）`,
+7. 严格保持段落结构：段落数量和顺序必须与原文完全一致，不要合并或拆分段落，不要重排段落顺序，每段内容对应原文的段落，不要出现段落内容错位或交错的情况`,
     en: `You are a senior editor. Rewrite the user's AI-generated text into natural, warm, human prose — remove the "AI smell".
 
 Rules:
@@ -28,7 +28,7 @@ Rules:
 4. Break long sentences. Split comma-chains over 20 words into two sentences.
 5. Keep the author's voice and stance. Do not introduce new ideas.
 6. No titles, no commentary, no "Here is the rewritten text" preamble. Output only the rewrite.
-7. Keep the original paragraph structure (line breaks unchanged).`,
+7. Strictly preserve paragraph structure: number and order of paragraphs must match the original exactly. Do not merge, split, or reorder paragraphs. Each paragraph's content must correspond to the original paragraph.`,
     ja: `あなたはベテラン編集者です。ユーザーが入力した AI 生成テキストを自然で温かい人間の表現に書き換え、「AI 臭」を取り除いてください。
 
 ルール：
@@ -38,7 +38,7 @@ Rules:
 4. 長文を分割。20 文字超の連続を文で区切る
 5. 筆者の口調と立場を保持。新しい意見を加えない
 6. タイトル・解説・「以下が書き換え結果です」等の前置きは一切なし。書き換え結果のみ出力
-7. 元の段落構成を維持`,
+7. 段落構成を厳密に維持：段落数と順序は原文と完全に一致させる。段落の結合・分割・並び替えは禁止。各段落の内容は原文の段落に対応する。`,
     es: `Eres editor senior. Reescribe el texto generado por IA del usuario en prosa natural, cálida, humana — elimina el "tono de IA".
 
 Reglas:
@@ -48,7 +48,7 @@ Reglas:
 4. Divide oraciones largas. Cadenas de más de 20 palabras con comas, sepáralas en dos oraciones.
 5. Mantén la voz del autor. No introduzcas ideas nuevas.
 6. Sin títulos, sin comentarios, sin "Aquí está el resultado". Solo la reescritura.
-7. Conserva la estructura de párrafos original.`,
+7. Conserva estrictamente la estructura de párrafos: número y orden de párrafos deben coincidir exactamente con el original. No unas, dividas ni reordenes párrafos. Cada párrafo debe corresponder al original.`,
   },
   email: {
     zh: `你是一位商务沟通专家。把用户输入的 AI 邮件草稿改写成得体、自然、让人愿意回复的商务邮件。
@@ -186,7 +186,7 @@ Reglas:
 4. "受访者普遍认为"→"多数受访者表示"/"样本中 X% 提到"
 5. 保留你的分析判断，但必须有数据支撑，不能空泛
 6. 不要加标题、不要加解释，直接输出分析内容
-7. 保持段落结构和所有引用编号`,
+7. 严格保持段落结构：段落数量和顺序与原文完全一致，不要合并或拆分段落。保持所有引用编号`,
     en: `You are a senior analyst. Rewrite the user's AI-generated research into a data-grounded, analyst-style report.
 
 Rules:

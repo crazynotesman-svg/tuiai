@@ -873,8 +873,11 @@ async function humanizeViaAPI(text, lv, sc){
   }
 }
 
-/* ===================== 7. 差异对比 ===================== */
-function splitSentences(text){ return text.split(/(?<=[。！？!?\n])/).filter(s => s.length); }
+/* ===================== 7. 差异对比（逐段对位） ===================== */
+function splitParas(text){
+  // 按空行分割段落，同时保留换行格式
+  return text.split('\n\n').filter(p => p.trim().length > 0);
+}
 function charDiff(a, b){
   const n = a.length, m = b.length;
   if(n * m > 400000){ return [[1,a],[2,b]]; }
@@ -901,17 +904,33 @@ function charDiff(a, b){
 }
 function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function buildDiffHtml(orig, result){
-  const A = splitSentences(orig), B = splitSentences(result);
-  let html = '';
-  const len = Math.max(A.length, B.length);
-  for(let k = 0; k < len; k++){
-    const a = A[k] ?? '', b = B[k] ?? '';
-    if(a === b){ html += esc(a); continue; }
-    for(const [tp, seg] of charDiff(a, b)){
+  // 如果整段不太长，直接做整段字符 diff（最精确）
+  if(orig.length * result.length <= 400000){
+    let html = '';
+    for(const [tp, seg] of charDiff(orig, result)){
       if(tp === 0) html += esc(seg);
       else if(tp === 1) html += '<del>' + esc(seg) + '</del>';
       else html += '<ins>' + esc(seg) + '</ins>';
     }
+    return html;
+  }
+  // 否则按段落分割，逐段对位
+  const A = splitParas(orig), B = splitParas(result);
+  let html = '';
+  const len = Math.max(A.length, B.length);
+  for(let k = 0; k < len; k++){
+    const a = A[k] ?? '', b = B[k] ?? '';
+    if(a === b){ html += esc(a) + '\n\n'; continue; }
+    if(a.length * b.length <= 400000){
+      for(const [tp, seg] of charDiff(a, b)){
+        if(tp === 0) html += esc(seg);
+        else if(tp === 1) html += '<del>' + esc(seg) + '</del>';
+        else html += '<ins>' + esc(seg) + '</ins>';
+      }
+    } else {
+      html += '<del>' + esc(a) + '</del><ins>' + esc(b) + '</ins>';
+    }
+    html += '\n\n';
   }
   return html;
 }
