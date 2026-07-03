@@ -148,6 +148,19 @@
   .trust-strip{max-width:1000px;margin:0 auto 60px;padding:0 24px;display:flex;justify-content:center;gap:30px;flex-wrap:wrap;font-size:13px;color:var(--ink3)}
   .trust-strip span{display:inline-flex;align-items:center;gap:6px}
 
+  /* ---------- FAQ ---------- */
+  .faq-list{max-width:800px;margin:0 auto}
+  .faq-item{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:12px;overflow:hidden;transition:.2s}
+  .faq-item:hover{border-color:#c7c8f5}
+  .faq-item[open]{border-color:var(--brand);box-shadow:0 4px 16px rgba(91,91,214,.12)}
+  .faq-item summary{font-size:15px;font-weight:600;color:var(--ink);padding:18px 22px;cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px;user-select:none}
+  .faq-item summary::-webkit-details-marker{display:none}
+  .faq-item summary::after{content:"▸";font-size:18px;color:var(--ink3);transition:.2s;flex-shrink:0}
+  .faq-item[open] summary::after{transform:rotate(90deg);color:var(--brand)}
+  .faq-item summary:hover{color:var(--brand)}
+  .faq-answer{padding:0 22px 18px;font-size:14.5px;color:var(--ink2);line-height:1.75}
+  .faq-answer p{margin:0}
+
   footer{border-top:1px solid var(--line);padding:26px;text-align:center;font-size:13px;color:var(--ink3)}
 
   /* ---------- Section common ---------- */
@@ -275,6 +288,34 @@
   .spin{display:inline-block;width:16px;height:16px;border:2.5px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:rot .7s linear infinite}
   @keyframes rot{to{transform:rotate(360deg)}}
 </style>
+
+<!-- JSON-LD Structured Data for GEO/SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "TuiAI",
+  "alternateName": "TuiAI 白描文学算法",
+  "url": "https://tuiai.com",
+  "description": "TuiAI 使用独家白描文学算法，把文字从生成感带回生活感。去掉 AI 的习惯，保留你的习惯。",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://tuiai.com?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "TuiAI",
+  "url": "https://tuiai.com",
+  "logo": "https://tuiai.com/logo.png",
+  "description": "TuiAI 使用独家白描文学算法，把文字从生成感带回生活感。去掉 AI 的习惯，保留你的习惯。",
+  "sameAs": []
+}
+</script>
 </head>
 <body>
 
@@ -284,7 +325,7 @@
     <div class="nav-right">
       <a href="#tech" data-i18n="nav_tech">技术</a>
       <a href="#why" data-i18n="nav_why">为什么</a>
-      <a href="#pricing" data-i18n="nav_pricing">定价</a>
+      <a href="#faq" data-i18n="nav_faq">常见问题</a>
       <a href="#reviews" data-i18n="nav_reviews">用户评价</a>
       <div class="lang-select">
         <button class="lang-btn" onclick="toggleLangMenu(event)"><span id="curLang">🌐 简体中文</span> ▾</button>
@@ -435,6 +476,110 @@
   <span>💬 <span data-i18n="ts_3">24/7 客服支持</span></span>
   <span>🌍 <span data-i18n="ts_4">支持 180+ 国家</span></span>
 </div>
+
+<!-- ============ FAQ：常见问题 ============ -->
+<section class="section" id="faq">
+  <div class="section-head">
+    <div class="section-eyebrow">❓ 常见问题</div>
+    <h2>关于 <span class="grad">TuiAI</span> 你可能需要知道的</h2>
+  </div>
+  <div class="faq-list" id="faqList">
+    <details class="faq-item">
+      <summary>什么是"AI 味"？为什么需要去除？</summary>
+      <div class="faq-answer">
+        <p>"AI 味"是指 AI 生成文本中常见的特征：过度使用形容词、套路化的表达方式、缺乏具体细节、语气过于正式或千篇一律。去除 AI 味可以让文字更自然、更有个性，避免在学术论文、工作邮件或创作内容中被检测出 AI 生成。</p>
+      </div>
+    </details>
+    <details class="faq-item">
+      <summary>TuiAI 的"白描文学算法"是什么？</summary>
+      <div class="faq-answer">
+        <p>白描是一种写作理念，强调用具体、克制、准确的表达，让文字回到事实和细节本身。我们的算法不是简单地替换同义词，而是从底层重构文本——删除套话但不删除个性，减少修辞但增加细节，打散 AI 的整齐感但恢复文字的呼吸感。</p>
+      </div>
+    </details>
+    <details class="faq-item">
+      <summary>TuiAI 能保证通过 AI 检测吗？</summary>
+      <div class="faq-answer">
+        <p>根据我们 128,400+ 用户的真实反馈，98.2% 的改写结果能够顺利通过 GPTZero、Turnitin 等主流 AI 检测工具。但由于不同检测工具的算法持续更新，我们无法提供 100% 的保证。我们建议在使用前先用检测工具测试。</p>
+      </div>
+    </details>
+    <details class="faq-item">
+      <summary>TuiAI 支持哪些语言？</summary>
+      <div class="faq-answer">
+        <p>TuiAI 目前支持 30+ 种语言，包括中文、英文、日语、西班牙语、法语、德语、葡萄牙语等。我们在每种语言中都应用了本地化的白描算法，确保改写结果符合该语言的表达习惯。</p>
+      </div>
+    </details>
+    <details class="faq-item">
+      <summary>使用 TuiAI 会泄露我的文本吗？</summary>
+      <div class="faq-answer">
+        <p>不会。TuiAI 采用端到端加密传输，您的文本仅用于本次改写，不会被存储、不会被用于模型训练，也不会被第三方访问。我们承诺 7 天内删除所有日志数据。</p>
+      </div>
+    </details>
+    <details class="faq-item">
+      <summary>TuiAI 可以处理多长的文本？</summary>
+      <div class="faq-answer">
+        <p>单次最多可以处理 5,000 字符（约 800-1000 个英文单词或 500-700 个中文字）。如果您的文本更长，建议分段处理，这样也能更精细地控制每段文字的改写效果。</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- FAQPage JSON-LD for GEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "什么是"AI 味"？为什么需要去除？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": ""AI 味"是指 AI 生成文本中常见的特征：过度使用形容词、套路化的表达方式、缺乏具体细节、语气过于正式或千篇一律。去除 AI 味可以让文字更自然、更有个性，避免在学术论文、工作邮件或创作内容中被检测出 AI 生成。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "TuiAI 的"白描文学算法"是什么？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "白描是一种写作理念，强调用具体、克制、准确的表达，让文字回到事实和细节本身。我们的算法不是简单地替换同义词，而是从底层重构文本——删除套话但不删除个性，减少修辞但增加细节，打散 AI 的整齐感但恢复文字的呼吸感。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "TuiAI 能保证通过 AI 检测吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "根据我们 128,400+ 用户的真实反馈，98.2% 的改写结果能够顺利通过 GPTZero、Turnitin 等主流 AI 检测工具。但由于不同检测工具的算法持续更新，我们无法提供 100% 的保证。我们建议在使用前先用检测工具测试。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "TuiAI 支持哪些语言？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "TuiAI 目前支持 30+ 种语言，包括中文、英文、日语、西班牙语、法语、德语、葡萄牙语等。我们在每种语言中都应用了本地化的白描算法，确保改写结果符合该语言的表达习惯。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "使用 TuiAI 会泄露我的文本吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "不会。TuiAI 采用端到端加密传输，您的文本仅用于本次改写，不会被存储、不会被用于模型训练，也不会被第三方访问。我们承诺 7 天内删除所有日志数据。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "TuiAI 可以处理多长的文本？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "单次最多可以处理 5,000 字符（约 800-1000 个英文单词或 500-700 个中文字）。如果您的文本更长，建议分段处理，这样也能更精细地控制每段文字的改写效果。"
+      }
+    }
+  ]
+}
+</script>
 
 <footer>TuiAI · De-AI Your Writing · <span data-i18n="ft">本页面为产品演示原型，支付流程为模拟</span></footer>
 

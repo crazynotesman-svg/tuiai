@@ -5,7 +5,7 @@
 /* ===================== 1. 国际化 i18n ===================== */
 const I18N = {
   zh: {
-    nav_pricing: '定价', nav_reviews: '用户评价', nav_upgrade: '升级 Pro',
+    nav_faq: '常见问题', nav_reviews: '用户评价',
     nav_tech: '技术', nav_why: '为什么',
     hero_badge: '✨ 已有 128,400+ 全球创作者选择白描算法',
     hero_title_1: '去掉 AI 的习惯', hero_title_2: '保留你的习惯',
@@ -61,7 +61,7 @@ const I18N = {
     feat_sub: '独家白描文学算法，从具体、克制和准确的表达原则出发，让每一段文字都有一个人写在背后。',
   },
   en: {
-    nav_pricing: 'Pricing', nav_reviews: 'Reviews', nav_upgrade: 'Upgrade to Pro',
+    nav_faq: 'FAQ', nav_reviews: 'Reviews',
     nav_tech: 'Technology', nav_why: 'Why',
     hero_badge: '✨ Trusted by 128,400+ creators worldwide',
     hero_title_1: 'Remove AI habits,', hero_title_2: 'keep your voice',
@@ -117,7 +117,7 @@ const I18N = {
     feat_sub: 'Our plain-style literary algorithm returns writing to concrete facts and lived details, so every piece has a person behind it.',
   },
   ja: {
-    nav_pricing: '料金', nav_reviews: 'レビュー', nav_upgrade: 'Pro にアップグレード',
+    nav_faq: 'よくある質問', nav_reviews: 'レビュー',
     nav_tech: '技術', nav_why: 'なぜ',
     hero_badge: '✨ 128,400+ のクリエイターが白描アルゴリズムを選択',
     hero_title_1: 'AI の習慣を消し、', hero_title_2: 'あなたの声を残す',
@@ -173,7 +173,7 @@ const I18N = {
     feat_sub: '独自の白描文学アルゴリズムにより、文字を事実と詳細に戻し、すべての文章に人間がいることを感じさせます。',
   },
   es: {
-    nav_pricing: 'Precios', nav_reviews: 'Opiniones', nav_upgrade: 'Pasar a Pro',
+    nav_faq: 'Preguntas frecuentes', nav_reviews: 'Opiniones',
     nav_tech: 'Tecnología', nav_why: 'Por qué',
     hero_badge: '✨ 128,400+ creadores eligen el algoritmo de estilo llano',
     hero_title_1: 'Elimina los hábitos de IA,', hero_title_2: 'guarda tu voz',
