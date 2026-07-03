@@ -986,6 +986,9 @@ function renderI18n(){
   onInput();
   // pw cta
   $('pwCta').textContent = pwSelected === 'monthly' ? pr.ctaMonthly : pr.ctaPack;
+  // go button text
+  const goBtn = $('goBtn');
+  if(goBtn) goBtn.innerHTML = `<span data-i18n="btn_go">${t('btn_go')}</span>`;
   // live ticker
   rotateLive(true);
 }
@@ -1087,8 +1090,14 @@ function setView(v){
   renderOutput();
 }
 function renderOutput(){
-  if(!lastResult) return;
   const out = $('output');
+  if(!lastResult){
+    out.classList.add('empty');
+    out.innerHTML = t('out_empty');
+    $('outCount').textContent = '';
+    $('outScore').innerHTML = '';
+    return;
+  }
   out.classList.remove('empty');
   out.innerHTML = viewMode === 'diff' ? buildDiffHtml(lastOrig, lastResult) : esc(lastResult);
   $('outCount').textContent = lastResult.length + t('word_unit');
@@ -1130,7 +1139,7 @@ async function humanize(){
   consume();
   renderOutput();
   btn.disabled = false;
-  btn.innerHTML = t('btn_go');
+  btn.innerHTML = `<span data-i18n="btn_go">${t('btn_go')}</span>`;
   if(!isPro() && state.credits === 0 && remainFree() === 0){
     toast(t('toast_quota'));
     setTimeout(() => openPaywall('lastfree'), 1400);
@@ -1174,7 +1183,13 @@ function loadDemo(){
   $('input').value = (DEMO[scene] && DEMO[scene][lang]) || DEMO[scene].en || DEMO.general[lang] || DEMO.general.en;
   onInput();
 }
-function clearInput(){ $('input').value = ''; onInput(); }
+function clearInput(){
+  $('input').value = '';
+  lastOrig = '';
+  lastResult = '';
+  renderOutput();
+  onInput();
+}
 function onInput(){
   const txt = $('input').value;
   $('inCount').textContent = txt.length + t('word_unit');
